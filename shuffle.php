@@ -63,6 +63,7 @@ function game($game)
             break;
     }
 
+    set_time_limit(20);
     return game($game);
 }
 
