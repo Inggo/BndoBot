@@ -1,5 +1,7 @@
 <?php
 
+define('SHUFFLE_CHAT_ID', $chat_id);
+
 use unreal4u\TelegramAPI\Telegram\Methods\SendMessage;
 use unreal4u\TelegramAPI\TgLog;
 
@@ -7,7 +9,7 @@ function sendMessage($msg)
 {
     $tgLog = new TgLog(BOT_TOKEN, $logger);
     $sendMessage = new SendMessage();
-    $sendMessage->chat_id = $chat_id;
+    $sendMessage->chat_id = SHUFFLE_CHAT_ID;
     $sendMessage->text = $msg;
     return $tgLog->performApiRequest($sendMessage);
 }
