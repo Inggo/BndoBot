@@ -13,12 +13,15 @@ $args = explode(' ', trim($update->message->text));
 $command = $args[0];
 
 $chat_id = $update->message->chat->id;
-$from = $update->message->from->username ?:
-    $update->message->from->first_name;
 
-$from_full = $update->message->from->username ?:
-    $update->message->from->first_name . ' ' .
-    $update->message->from->last_name;
+if ($update->message->from) {
+    $from = $update->message->from->username ?:
+        $update->message->from->first_name;
+
+    $from_full = $update->message->from->username ?:
+        $update->message->from->first_name . ' ' .
+        $update->message->from->last_name;
+}
 
 // Run command
 switch ($command) {
