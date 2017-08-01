@@ -17,8 +17,9 @@ $url .= '.json';
 $response = file_get_contents($url);
 $json_response = json_decode($response);
 
-$img = $json_response->content->upload->links->original;
-$response_img = RNM_BASE_URL . $img;
+$response_msg = $json_response->id ?
+    RNM_BASE_URL . '/' . $json_response->id :
+    'Try again later....';
 
 # file_put_contents('test.in', $response_img . "\n", FILE_APPEND);
 
@@ -28,5 +29,5 @@ use unreal4u\TelegramAPI\TgLog;
 $tgLog = new TgLog(BOT_TOKEN, $logger);
 $sendMessage = new SendMessage();
 $sendMessage->chat_id = $update->message->chat->id;
-$sendMessage->text = $response_img;
+$sendMessage->text = $response_msg;
 $tgLog->performApiRequest($sendMessage);
