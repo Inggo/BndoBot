@@ -15,10 +15,11 @@ $args = array_shift($input);
 
 // Run command
 switch ($command) {
-    case '\/rnm':
+    case '/fu':
+        include 'fu.php';
+        break;
+    case '/rnm':
         include 'rnm.php';
         break;
     default:
-        file_put_contents('test.in', json_encode($updateData) . "\n", FILE_APPEND);
-        break;
 }
