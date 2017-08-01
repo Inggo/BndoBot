@@ -13,4 +13,4 @@ if ($tag) {
 $url .= '.json';
 
 $response = file_get_contents($url);
-file_put_contents('test.in', json_encode($response));
+file_put_contents('test.in', $tag . ' ... ' . json_encode($response), FILE_APPEND);
