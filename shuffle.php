@@ -3,12 +3,11 @@
 use unreal4u\TelegramAPI\Telegram\Methods\SendMessage;
 use unreal4u\TelegramAPI\TgLog;
 
-$tgLog = new TgLog(BOT_TOKEN, $logger);
-$sendMessage = new SendMessage();
-$sendMessage->chat_id = $chat_id;
-
-function sendMessage($msg) use ($sendMessage, $tgLog)
+function sendMessage($msg)
 {
+    $tgLog = new TgLog(BOT_TOKEN, $logger);
+    $sendMessage = new SendMessage();
+    $sendMessage->chat_id = $chat_id;
     $sendMessage->text = $message;
     return $tgLog->performApiRequest($sendMessage);
 }

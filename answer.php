@@ -3,12 +3,11 @@
 use unreal4u\TelegramAPI\Telegram\Methods\SendMessage;
 use unreal4u\TelegramAPI\TgLog;
 
-$tgLog = new TgLog(BOT_TOKEN, $logger);
-$sendMessage = new SendMessage();
-$sendMessage->chat_id = $chat_id;
-
-function send($msg) use ($sendMessage, $tgLog)
+function sendMessage($msg)
 {
+    $tgLog = new TgLog(BOT_TOKEN, $logger);
+    $sendMessage = new SendMessage();
+    $sendMessage->chat_id = $chat_id;
     $sendMessage->text = $message;
     return $tgLog->performApiRequest($sendMessage);
 }
@@ -32,7 +31,7 @@ function checkAnswer($game, $answer)
     if ($word === $answer) {
         file_put_contents($game, '5');
         unlink($game . '-word');
-        send($from . ' got it right! Answer: ' . $word);
+        sendMessage($from . ' got it right! Answer: ' . $word);
         sleep(5);
     }
 }
