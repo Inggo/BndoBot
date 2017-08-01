@@ -15,10 +15,9 @@ $url .= '.json';
 $response = file_get_contents($url);
 $json_response = json_decode($response);
 
-$response_msg = $json_response->id ?
-    RNM_BASE_URL . '/' . $json_response->id :
-    'Try again later....';
+$img = $json_response->content->upload->links->original;
+$response_img = RNM_BASE_URL . $img;
 
 # file_put_contents('test.in', $response_img . "\n", FILE_APPEND);
 
-include 'respond.php';
+include 'respond_photo.php';
