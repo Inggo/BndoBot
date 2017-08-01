@@ -9,9 +9,8 @@ $updateData = json_decode(file_get_contents('php://input'), true);
 $update = new Update($updateData);
 
 // Check update for command
-$input = explode(' ', trim($update->message->text));
-$command = $input[0];
-$args = array_shift($input);
+$args = explode(' ', trim($update->message->text));
+$command = $args[0];
 
 $chat_id = $update->message->chat->id;
 

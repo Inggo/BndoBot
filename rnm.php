@@ -4,10 +4,8 @@ define('RNM_BASE_URL', 'https://rate.nyo.me');
 
 $url = RNM_BASE_URL . '/random';
 
-$tag = $args[0];
-
-if ($tag) {
-    $url .= '/' . $tag;
+if (count($args) > 1) {
+    $url .= '/' . $args[1];
 }
 
 $url .= '.json';
