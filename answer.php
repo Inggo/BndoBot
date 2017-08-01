@@ -8,7 +8,7 @@ function sendMessage($msg)
     $tgLog = new TgLog(BOT_TOKEN, $logger);
     $sendMessage = new SendMessage();
     $sendMessage->chat_id = $chat_id;
-    $sendMessage->text = $message;
+    $sendMessage->text = $msg;
     return $tgLog->performApiRequest($sendMessage);
 }
 
@@ -35,4 +35,5 @@ function checkAnswer($game, $answer)
         sleep(5);
     }
 }
+
 checkAnswer($game, $command);
