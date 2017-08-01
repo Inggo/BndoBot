@@ -1,5 +1,7 @@
 <?php
 
+include 'core.php';
+
 use \unreal4u\TelegramAPI\Telegram\Types\Update;
 
 $updateData = json_decode(file_get_contents('php://input'), true);
