@@ -27,30 +27,30 @@ function game($game)
         case '0':
             // Show a new word
             file_put_contents($game . '-word', getRandomWord());
-            sendMessage('Unscramble the following: ' . showRandomWord($game));
+            sendMessage('Unscramble the following: `' . showRandomWord($game) . '`');
             file_put_contents($game, '1');
             sleep(10);
             break;
         case '1':
             // Show hint (1 letter)
-            sendMessage('Hint 1: ' . showHint($game, 1));
+            sendMessage('Hint 1: `' . showHint($game, 1) . '`');
             file_put_contents($game, '2');
             sleep(10);
             break;
         case '2':
-            sendMessage('Hint 2: ' . showHint($game, 2));
+            sendMessage('Hint 2: `' . showHint($game, 2) . '`');
             // Show hint (2 letters)
             file_put_contents($game, '3');
             sleep(10);
             break;
         case '3':
-            sendMessage('Hint 3: ' . showHint($game, 3));
+            sendMessage('Hint 3: `' . showHint($game, 3) . '`');
             // Show hint (3 letters)
             file_put_contents($game, '4');
             sleep(10);
             break;
         case '4':
-            sendMessage('Times up! Answer is: ' . showAnswer($game));
+            sendMessage('Times up! Answer is: `' . showAnswer($game) . '`');
             // Times up! Show answer and restart game
             file_put_contents($game, '5');
             unlink($game . '-word');
