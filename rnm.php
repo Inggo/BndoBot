@@ -18,4 +18,4 @@ $json_response = json_decode($response);
 $img = $json_response->content->upload->links->original;
 $response_img = RNM_BASE_URL . $img;
 
-file_put_contents('test.in', $response_img, FILE_APPEND);
+file_put_contents('test.in', $response_img . "\n", FILE_APPEND);
