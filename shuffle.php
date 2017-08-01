@@ -64,7 +64,7 @@ function game($game)
     }
 
     set_time_limit(20);
-    return game($game);
+    game($game);
 }
 
 function showRandomWord($game)
@@ -85,6 +85,7 @@ function showHint($game, $count)
 
     while ($i < strlen($word)) {
         $hint .= '*';
+        $i++;
     }
 
     return $hint;
