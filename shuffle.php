@@ -68,6 +68,11 @@ function game($game)
     return game($game);
 }
 
+function showAnswer($game)
+{
+    return file_get_contents($game . '-word');
+}
+
 function showRandomWord($game)
 {
     $word = file_get_contents($game . '-word');

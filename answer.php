@@ -34,7 +34,7 @@ function checkAnswer($game, $answer, $from)
     if ($word === $answer) {
         file_put_contents($game, '5');
         unlink($game . '-word');
-        sendMessage($from . ' got it right! Answer: ' . $word);
+        sendMessage($from . ' got it right! Answer: `' . $word . '`');
     }
 }
 
