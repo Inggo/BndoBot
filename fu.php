@@ -4,14 +4,22 @@ $subargs = array_shift($args);
 $target = trim(implode(' ', $args));
 
 $messages = [
-    "🖕 🖕 🖕 %s 🖕 🖕 🖕",
-    "Putang ina mo %s",
-    "Pakyu ka %s",
+    "🖕 🖕 🖕 %target% 🖕 🖕 🖕",
+    "Putang ina mo %target%",
+    "Pakyu ka %target%",
 ]
 
 shuffle($messages);
 
 if ($target) {
-    $response_msg = sprintf($messages[0], $target, $from);
+    $search = [
+        '%target%',
+        '%from',
+    ];
+    $replace = [
+        $target,
+        $from,
+    ];
+    $response_msg = str_replace($search, $replace, $messages[0]);
     include 'respond.php';
 }
