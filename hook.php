@@ -13,6 +13,8 @@ $input = explode(' ', trim($update->message->text));
 $command = $input[0];
 $args = array_shift($input);
 
+$chat_id = $update->message->chat->id;
+
 // Run command
 switch ($command) {
     case '/fu':

@@ -4,7 +4,7 @@ define('RNM_BASE_URL', 'https://rate.nyo.me');
 
 $url = RNM_BASE_URL . '/random';
 
-$tag = $arg;
+$tag = $args[0];
 
 if ($tag) {
     $url .= '/' . $tag;
@@ -23,11 +23,4 @@ $response_msg = $json_response->id ?
 
 # file_put_contents('test.in', $response_img . "\n", FILE_APPEND);
 
-use unreal4u\TelegramAPI\Telegram\Methods\SendMessage;
-use unreal4u\TelegramAPI\TgLog;
-
-$tgLog = new TgLog(BOT_TOKEN, $logger);
-$sendMessage = new SendMessage();
-$sendMessage->chat_id = $update->message->chat->id;
-$sendMessage->text = $response_msg;
-$tgLog->performApiRequest($sendMessage);
+include 'respond.php';
