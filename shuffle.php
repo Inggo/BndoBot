@@ -7,7 +7,7 @@ $tgLog = new TgLog(BOT_TOKEN, $logger);
 $sendMessage = new SendMessage();
 $sendMessage->chat_id = $chat_id;
 
-function send($msg) use ($sendMessage, $tgLog)
+function sendMessage($msg) use ($sendMessage, $tgLog)
 {
     $sendMessage->text = $message;
     return $tgLog->performApiRequest($sendMessage);
@@ -22,33 +22,33 @@ function game($game)
         case '0':
             // Show a new word
             file_put_contents($game . '-word', getRandomWord());
-            send('Unscramble the following: ' . showRandomWord($game));
+            sendMessage('Unscramble the following: ' . showRandomWord($game));
             file_put_contents($game, '1');
             break;
         case '1':
             // Show hint (1 letter)
-            send('Hint 1:' . showHint($game, 1));
+            sendMessage('Hint 1:' . showHint($game, 1));
             file_put_contents($game, '2');
             break;
         case '2':
-            send('Hint 2:' . showHint($game, 1));
+            sendMessage('Hint 2:' . showHint($game, 1));
             // Show hint (2 letters)
             file_put_contents($game, '3');
             break;
         case '3':
-            send('Hint 3:' . showHint($game, 1));
+            sendMessage('Hint 3:' . showHint($game, 1));
             // Show hint (3 letters)
             file_put_contents($game, '4');
             break;
         case '4':
-            send('Times up! Answer is: ' . showAnswer($game));
+            sendMessage('Times up! Answer is: ' . showAnswer($game));
             // Times up! Show answer and restart game
             file_put_contents($game, '5');
             unlink($game . '-word');
             sleep(5);
             break;
         default:
-            send('Next word will appear in 10 seconds');
+            sendMessage('Next word will appear in 10 seconds');
             file_put_contents($game, '0');
             break;
     }
@@ -88,7 +88,7 @@ $game = '.shuffle-' . $chat_id;
 // Check if game is currently running
 if (file_exists($game)) {
     // Delete the file stop game
-    send('Game stopped. Type /shuffle again to start game.');
+    sendMessage('Game stopped. Type /shuffle again to start game.');
     unlink($game);
     unlink($game . '-word');
     die();
@@ -97,7 +97,7 @@ if (file_exists($game)) {
 // Start the game
 file_put_contents($game, '0');
 
-send('Shuffle game started. First word will appear in 15 seconds.');
+sendMessage('Shuffle game started. First word will appear in 15 seconds.');
 
 sleep(5);
 
