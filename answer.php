@@ -26,16 +26,15 @@ if (!file_exists($game . '-word')) {
     die();
 }
 
-function checkAnswer($game, $answer)
+function checkAnswer($game, $answer, $from)
 {
-    $word = file_get_contents($game . '-game');
+    $word = file_get_contents($game . '-word');
 
     if ($word === $answer) {
         file_put_contents($game, '5');
         unlink($game . '-word');
         sendMessage($from . ' got it right! Answer: ' . $word);
-        sleep(5);
     }
 }
 
-checkAnswer($game, $command);
+checkAnswer($game, $command, $from);
