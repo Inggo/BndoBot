@@ -28,16 +28,16 @@ function game($game)
             break;
         case '1':
             // Show hint (1 letter)
-            sendMessage('Hint 1:' . showHint($game, 1));
+            sendMessage('Hint 1: ' . showHint($game, 1));
             file_put_contents($game, '2');
             break;
         case '2':
-            sendMessage('Hint 2:' . showHint($game, 1));
+            sendMessage('Hint 2: ' . showHint($game, 2));
             // Show hint (2 letters)
             file_put_contents($game, '3');
             break;
         case '3':
-            sendMessage('Hint 3:' . showHint($game, 1));
+            sendMessage('Hint 3: ' . showHint($game, 3));
             // Show hint (3 letters)
             file_put_contents($game, '4');
             break;
