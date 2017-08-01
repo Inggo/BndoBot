@@ -21,10 +21,15 @@ if ($update->message->from) {
     $from_full = $update->message->from->username ?:
         $update->message->from->first_name . ' ' .
         $update->message->from->last_name;
+
+    $from_id = $update->message->from->id;
 }
 
 // Run command
 switch ($command) {
+    case '/shuffle':
+        include 'shuffle.php';
+        break;
     case '/fu':
         include 'fu.php';
         break;
@@ -32,4 +37,6 @@ switch ($command) {
         include 'rnm.php';
         break;
     default:
+        include 'answer.php';
+        break;
 }
