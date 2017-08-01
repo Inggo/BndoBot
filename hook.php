@@ -14,7 +14,7 @@ $command = $input[0];
 $args = array_shift($input);
 
 // Run command
-switch($command) {
+switch ($command) {
     case '\/rnm':
         include 'rnm.php';
         break;
