@@ -10,6 +10,7 @@ function sendMessage($msg)
     $tgLog = new TgLog(BOT_TOKEN, $logger);
     $sendMessage = new SendMessage();
     $sendMessage->chat_id = SHUFFLE_CHAT_ID;
+    $sendMessage->parse_mode = 'Markdown';
     $sendMessage->text = $msg;
     return $tgLog->performApiRequest($sendMessage);
 }

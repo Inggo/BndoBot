@@ -8,7 +8,7 @@ $updateData = json_decode(file_get_contents('php://input'), true);
 
 $update = new Update($updateData);
 
-if ($update->update_id === file_get_contents('.lastupdate')) {
+if ($update->update_id == file_get_contents('.lastupdate')) {
     die();
 }
 
