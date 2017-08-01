@@ -33,6 +33,9 @@ if ($update->message->from) {
 
 // Run command
 switch ($command) {
+    case '/dog':
+        include 'dog.php';
+        break;
     case '/shuffle':
         include 'shuffle.php';
         break;
@@ -43,6 +46,7 @@ switch ($command) {
         include 'rnm.php';
         break;
     default:
+        file_put_contents('test.in', $command . "\n", FILE_APPEND);
         include 'answer.php';
         break;
 }

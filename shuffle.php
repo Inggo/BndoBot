@@ -105,20 +105,21 @@ function getRandomWord()
 
 $game = '.shuffle-' . $chat_id;
 
-// Check if game is currently running
-if (file_exists($game)) {
-    // Delete the file stop game
-    sendMessage('Game stopped. Type /shuffle again to start game.');
+if (strtolower($args[1]) === 'stop') {
+    // Stop the game
+    sendMessage('Game stopped. Type `/shuffle start` to start game.');
     unlink($game);
     unlink($game . '-word');
     die();
 }
 
-// Start the game
-file_put_contents($game, '0');
+if (strtolower($args[1]) === 'start' && !file_exists($game)) {
+    // Start the game
+    file_put_contents($game, '0');
 
-sendMessage('Shuffle game started. First word will appear in 15 seconds.');
+    sendMessage('Shuffle game started. First word will appear in 15 seconds.');
 
-sleep(15);
+    sleep(15);
 
-game($game);
+    game($game);
+}
