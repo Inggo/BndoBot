@@ -12,7 +12,6 @@ $messages = [
 shuffle($messages);
 
 if ($target) {
-    $response_msg = sprintf($message[0], $target, $from);
+    $response_msg = sprintf($messages[0], $target, $from);
+    include 'respond.php';
 }
-
-include 'respond.php';
