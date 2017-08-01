@@ -8,20 +8,11 @@ $updateData = json_decode(file_get_contents('php://input'), true);
 
 $update = new Update($updateData);
 
-$db = sqlite_open('bndobot', 0666, $sqliteerror);
-
-if (!$db) {
-    die($sqliteerror);
-}
-
-$query = sqlite_query($db, "SELECT * FROM updates WHERE id = {$update->update_id}");
-$result = sqlite_fetch_all($query, SQLITE_ASSOC);
-
-if (count($result) > 0) {
+if ($update->update_id === file_get_contents('.lastupdate')) {
     die();
 }
 
-$query = sqlite_query($db, "INSERT INTO updates VALUES ({$update->update_id})");
+file_put_contents('.lastupdate', $update->update_id);
 
 // Check update for command
 $args = explode(' ', trim($update->message->text));
