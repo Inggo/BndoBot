@@ -78,17 +78,13 @@ class Trivia extends BaseCommand
         $this->trivia = $this->getRandomQuestion();
         file_put_contents($this->answerfile, $this->trivia->answer);
         $this->sendMessage('Question: ' . $this->trivia->question . "\n" .
-            'Answer: `' . str_repeat("*", strlen($this->trivia->answer)) . '`');
+            'Answer: `' . $this->getHint(0) . '`');
         $this->setGameState('1');
         sleep(self::SLEEP_TIME);
     }
 
-    protected function showHint($count)
+    protected function getHint($count)
     {
-        if (!file_exists($this->answerfile)) {
-            return $this->endRound(false);
-        }
-
         $answer = $this->getAnswer();
 
         $hint = '';
@@ -98,9 +94,24 @@ class Trivia extends BaseCommand
         }
 
         while ($i < strlen($answer)) {
-            $hint .= '*';
+            if ($answer[$i] == '*') {
+                $hint .= ' ';
+            } else {
+                $hint .= '*';
+            }
             $i++;
         }
+
+        return $hint;
+    }
+
+    protected function showHint($count)
+    {
+        if (!file_exists($this->answerfile)) {
+            return $this->endRound(false);
+        }
+
+        $hint = $this->getHint($count);
 
         $this->sendMessage('Hint ' . $count . ': `' . $hint . '`');
         $this->setGameState($count + 1);
