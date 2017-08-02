@@ -21,7 +21,7 @@ class Command
     public function __construct(Update $update)
     {
         $this->args = explode(' ', trim($update->message->text));
-        $this->command = $args[0];
+        $this->command = $this->args[0];
 
         $this->chat_id = $update->message->chat->id;
 
