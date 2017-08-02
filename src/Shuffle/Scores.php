@@ -20,9 +20,11 @@ class Score
 trait Scores
 {
     public $scorefile;
+    public $monthlyscorefile;
     public $globalscorefile = '.shuffle-scores';
 
     public $gamescores = [];
+    public $monthlyscores = [];
     public $globalscores = [];
 
     public function unlinkIfExists($file)
@@ -33,6 +35,7 @@ trait Scores
     public function addScore($user_id, $user_name, $points = 0)
     {
         $this->setScores($this->scorefile, $this->getGameScores(), $user_id, $user_name, $points);
+        $this->setScores($this->monthlyscorefile, $this->getMonthlyScores(), $user_id, $user_name, $points);
         $this->setScores($this->globalscorefile, $this->getGlobalScores(), $user_id, $user_name, $points);
     }
 
@@ -69,6 +72,19 @@ trait Scores
         return $this->gamescores;
     }
 
+    public function getMonthlyScores()
+    {
+        if (!file_exists($this->monthlyscorefile)) {
+            return [];
+        }
+
+        $scores = json_decode(file_get_contents($this->monthlyscorefile));
+
+        $this->monthlyscores = $this->sortScores($scores);
+
+        return $this->monthlyscores;
+    }
+
     public function getGlobalScores()
     {
         if (!file_exists($this->globalscorefile)) {
@@ -100,8 +116,28 @@ trait Scores
         $this->sendMessage($msg);
     }
 
+    public function showMonthlyTopTen()
+    {
+        $scores = $this->getMonthlyScores();
+
+        if (count($scores) === 0) {
+            return;
+        }
+
+        $msg = "Top 10 for this month:\n";
+
+        for ($i = 0; $i < 10 && $i < count($scores); $i++) {
+            $msg .= $i + 1 . '. *' . $scores[$i]->name . '* - ' .
+                $scores[$i]->score . "\n";
+        }
+
+        $this->sendMessage($msg);
+    }
+
     public function showTopTen()
     {
+        $this->showMonthlyTopTen();
+
         $scores = $this->getGlobalScores();
 
         if (count($scores) === 0) {

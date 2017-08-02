@@ -21,6 +21,7 @@ class ShuffleAnswer extends BaseCommand
         }
 
         $this->scorefile = $this->gamefile . '-score';
+        $this->scorefile = $this->gamefile . '-score-' . date(Ym);
 
         $this->answer = implode(' ', $command->args);
 

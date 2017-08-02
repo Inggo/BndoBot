@@ -24,6 +24,7 @@ class Shuffle extends BaseCommand
         $this->wordfile = $this->gamefile . '-word';
 
         $this->scorefile = $this->gamefile . '-score';
+        $this->scorefile = $this->gamefile . '-score-' . date(Ym);
 
         $this->run();
     }
