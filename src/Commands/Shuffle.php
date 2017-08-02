@@ -56,9 +56,9 @@ class Shuffle extends BaseCommand
     protected function endGame()
     {
         $this->sendMessage('Game stopped. Type `/shuffle start` to start game.');
-        unlink($this->gamefile);
-        unlink($this->wordfile);
-        unlink($this->scorefile);
+        $this->unlinkIfExists($this->gamefile);
+        $this->unlinkIfExists($this->wordfile);
+        $this->unlinkIfExists($this->scorefile);
     }
 
     protected function getGameState()
@@ -142,7 +142,7 @@ class Shuffle extends BaseCommand
             $this->sendMessage('Times up! Answer is: `' . $this->getWord() . '`');
         }
         $this->setGameState('5');
-        unlink($this->wordfile);
+        $this->unlinkIfExists($this->wordfile);
         sleep(self::SLEEP_TIME);
     }
 

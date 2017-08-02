@@ -25,6 +25,11 @@ trait Scores
     public $gamescores = [];
     public $globalscores = [];
 
+    public function unlinkIfExists($file)
+    {
+        return !file_exists($file) || unlink($file);
+    }
+
     public function addScore($user_id, $user_name, $points = 0)
     {
         $this->setScores($this->scorefile, $this->getGameScores(), $user_id, $user_name, $points);

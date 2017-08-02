@@ -44,7 +44,7 @@ class ShuffleAnswer extends BaseCommand
             $this->addScore($this->command->from_id, $this->command->from, $points);
 
             file_put_contents($this->gamefile, '5');
-            unlink($this->wordfile);
+            $this->unlinkIfExists($this->wordfile);
             $this->sendMessage($this->command->from . ' got it right! Answer: `' .
                 $word . '` for ' . $points . ' ' . $label);
             $this->showUserStats($this->command->from_id, $this->command->from);
