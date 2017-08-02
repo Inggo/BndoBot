@@ -34,6 +34,7 @@ class Shuffle extends BaseCommand
         if ($subcommand === 'stop' && file_exists($this->gamefile)) {
             return $this->endGame();
         } elseif ($subcommand === 'start' && !file_exists($this->gamefile)) {
+            ini_set('max_execution_time', 0);
             $this->sendMessage('Shuffle game started.');
             $this->startRound(true);
             return $this->game();
@@ -152,6 +153,8 @@ class Shuffle extends BaseCommand
             return;
         }
 
+        set_time_limit(0);
+
         switch ($this->getGameState()) {
             case '0':
                 $this->generateWord();
@@ -169,7 +172,6 @@ class Shuffle extends BaseCommand
                 break;
         }
 
-        set_time_limit(30);
         return $this->game();
     }
 }
