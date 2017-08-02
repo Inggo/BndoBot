@@ -17,7 +17,7 @@ class BaseCommand
 
     public function sendMessage($message)
     {
-        $tgLog = new TgLog(BOT_TOKEN, $logger);
+        $tgLog = new TgLog(BOT_TOKEN);
         $sendMessage = new SendMessage();
         $sendMessage->chat_id = $this->command->chat_id;
         $sendMessage->parse_mode = 'Markdown';

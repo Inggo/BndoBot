@@ -53,7 +53,7 @@ class Shuffle extends BaseCommand
     protected function generateWord()
     {
         file_put_contents($this->wordfile, $this->getRandomWord());
-        sendMessage('Unscramble the following: `' . $this->showRandomWord() . '`');
+        $this->sendMessage('Unscramble the following: `' . $this->showRandomWord() . '`');
         $this->setGameState('1');
         sleep(self::SLEEP_TIME);
     }
@@ -97,13 +97,13 @@ class Shuffle extends BaseCommand
 
     protected function startRound()
     {
-        sendMessage('Next word will appear in 15 seconds');
+        $this->sendMessage('Next word will appear in 15 seconds');
         $this->setGameState('0');
     }
 
     protected function endRound()
     {
-        sendMessage('Times up! Answer is: `' . $this->getWord() . '`');
+        $this->sendMessage('Times up! Answer is: `' . $this->getWord() . '`');
         $this->setGameState('5');
         unlink($this->wordfile);
     }
