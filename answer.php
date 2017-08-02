@@ -27,11 +27,16 @@ if (!file_exists($game . '-word')) {
     die();
 }
 
+function fixFormat($word)
+{
+    return strtolower(trim($word));
+}
+
 function checkAnswer($game, $answer, $from)
 {
     $word = file_get_contents($game . '-word');
 
-    if ($word === $answer) {
+    if (fixFormat($word) === fixFormat($answer)) {
         file_put_contents($game, '5');
         unlink($game . '-word');
         sendMessage($from . ' got it right! Answer: `' . $word . '`');
