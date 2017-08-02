@@ -34,7 +34,7 @@ class Strawpoll extends BaseCommand
         $this->title = trim($title);
         $this->options = [];
         foreach ($options as $option) {
-            $options[] = trim($option);
+            $this->options[] = trim($option);
         }
 
         $this->run();
