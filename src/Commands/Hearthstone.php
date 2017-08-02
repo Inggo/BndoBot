@@ -43,7 +43,12 @@ class Hearthstone extends BaseCommand
             return;
         }
 
-        $response_img = $json_response[0]->img;
-        $this->respondWithPhoto($response_img);
+        for ($i = 0; $i < count($json_response); $i++) {
+            if ($json_response[$i]->img) {
+                $response_img = $json_response[0]->img;
+                $this->respondWithPhoto($response_img);
+                return;
+            }
+        }
     }
 }
