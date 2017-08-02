@@ -13,15 +13,11 @@ class ShuffleAnswer extends BaseCommand
     {
         parent::__construct($command);
 
-        $this->gamefile = '.shuffle-' . $this->command->chat_id;
-        $this->wordfile = $this->gamefile . '-word';
+        $this->setupGameFiles();
 
         if (!file_exists($this->gamefile) || !file_exists($this->wordfile)) {
             die();
         }
-
-        $this->scorefile = $this->gamefile . '-score';
-        $this->monthlyscorefile = $this->gamefile . '-score-' . date(Ym);
 
         $this->answer = implode(' ', $command->args);
 

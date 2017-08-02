@@ -21,11 +21,22 @@ trait Scores
 {
     public $scorefile;
     public $monthlyscorefile;
-    public $globalscorefile = '.shuffle-scores';
+    public $globalscorefile;
 
     public $gamescores = [];
     public $monthlyscores = [];
     public $globalscores = [];
+
+    // Put this in a separate class/trait in the future
+    public function setupGameFiles()
+    {
+        $this->gamefile = '.shuffle-' . $this->command->chat_id;
+        $this->wordfile = $this->gamefile . '-word';
+
+        $this->scorefile = $this->gamefile . '-score';
+        $this->monthlyscorefile = $this->gamefile . '-score-' . date(Ym);
+        $this->globalscorefile = $this->gamefile . '-score-all';
+    }
 
     public function unlinkIfExists($file)
     {

@@ -20,11 +20,7 @@ class Shuffle extends BaseCommand
     {
         parent::__construct($command);
 
-        $this->gamefile = '.shuffle-' . $this->command->chat_id;
-        $this->wordfile = $this->gamefile . '-word';
-
-        $this->scorefile = $this->gamefile . '-score';
-        $this->monthlyscorefile = $this->gamefile . '-score-' . date(Ym);
+        $this->setupGameFiles();
 
         $this->run();
     }
