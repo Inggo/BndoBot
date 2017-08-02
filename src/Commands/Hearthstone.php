@@ -36,7 +36,7 @@ class Hearthstone extends BaseCommand
         $context = stream_context_create($opts);
 
         $command = array_shift($this->command);
-        $response = file_get_contents(self::HS_API . rawurlencode($this->search_params), false, $context);
+        $response = file_get_contents(self::HS_API . rawurlencode($this->search_params) . '?collectible=1', false, $context);
         $json_response = json_decode($response);
 
         if (!$json_response || empty($json_response)) {
@@ -45,7 +45,7 @@ class Hearthstone extends BaseCommand
 
         for ($i = 0; $i < count($json_response); $i++) {
             if ($json_response[$i]->img) {
-                $response_img = $json_response[0]->img;
+                $response_img = $json_response[$i]->img;
                 $this->respondWithPhoto($response_img);
                 return;
             }
