@@ -26,12 +26,12 @@ class PSEi extends BaseCommand
         $response = file_get_contents(self::PSE_API . $this->code . '.json');
         $json_response = json_decode($response);
 
-        if (!$json_response || !$json_response->stock) {
+        if (!$json_response || !$json_response->stock[0]) {
              return $this->sendMessage('No PSEi Stock found for `' . $this->code . '` or API is down', true);
         }
 
         $as_of = $json_response->as_of;
-        $stock = $json_response->stock;
+        $stock = $json_response->stock[0];
 
         $msg = $stock->name . "\n`" . $stock->symbol . " " . $stock->price->amount;
 
