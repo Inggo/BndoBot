@@ -8,6 +8,13 @@ class Score
     public $score;
     public $name;
     public $id;
+
+    public function __construct($id, $name, $score)
+    {
+        $this->id = $id;
+        $this->name = $name;
+        $this->score = $score;
+    }
 }
 
 trait Scores
