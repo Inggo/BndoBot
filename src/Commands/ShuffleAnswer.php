@@ -10,7 +10,7 @@ class ShuffleAnswer extends BaseCommand
     {
         parent::__construct($command);
 
-        $this->gamefile = '.shuffle-' . $chat_id;
+        $this->gamefile = '.shuffle-' . $this->command->chat_id;
         $this->wordfile = $this->gamefile . '-word';
 
         if (!file_exists($this->gamefile) || !file_exists($this->wordfile)) {
