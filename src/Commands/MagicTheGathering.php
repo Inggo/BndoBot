@@ -25,7 +25,7 @@ class MagicTheGathering extends BaseCommand
 
     public function run()
     {
-        $response = file_get_contents(self::MTG_API . rawurlencode($this->search_params) . '?collectible=1', false, $context);
+        $response = file_get_contents(self::MTG_API . rawurlencode($this->search_params));
 
         $json_response = json_decode($response);
 
