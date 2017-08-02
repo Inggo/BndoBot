@@ -16,7 +16,7 @@ class ShuffleAnswer extends BaseCommand
         $this->setupGameFiles('shuffle');
 
         if (!file_exists($this->gamefile) || !file_exists($this->answerfile)) {
-            die();
+            return;
         }
 
         $this->answer = implode(' ', $command->args);

@@ -77,8 +77,8 @@ class Trivia extends BaseCommand
     {
         $this->trivia = $this->getRandomQuestion();
         file_put_contents($this->answerfile, $this->trivia->answer);
-        $this->sendMessage($this->trivia->question . "\n" .
-            '`' . str_repeat("*", strlen($this->trivia->answer)) . '`');
+        $this->sendMessage('Question: ' . $this->trivia->question . "\n" .
+            'Answer: `' . str_repeat("*", strlen($this->trivia->answer)) . '`');
         $this->setGameState('1');
         sleep(self::SLEEP_TIME);
     }
