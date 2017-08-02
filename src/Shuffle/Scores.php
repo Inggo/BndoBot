@@ -42,6 +42,10 @@ trait Scores
 
     public function getGameScores()
     {
+        if (!file_exists($this->scorefile)) {
+            return [];
+        }
+
         $scores = json_decode(file_get_contents($this->scorefile));
 
         $this->gamescores = $this->sortScores($scores);
@@ -51,6 +55,10 @@ trait Scores
 
     public function getGlobalScores()
     {
+        if (!file_exists($this->globalscorefile)) {
+            return [];
+        }
+
         $scores = json_decode(file_get_contents($this->globalscorefile));
 
         $this->globalscores = $this->sortScores($scores);

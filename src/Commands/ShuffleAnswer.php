@@ -38,7 +38,7 @@ class ShuffleAnswer extends BaseCommand
         $word = file_get_contents($this->wordfile);
 
         if ($this->format($word) === $this->format($this->answer)) {
-            $points = $stats === 1 ? 5 : 5 - $stats;
+            $points = $stats == 1 ? 5 : 5 - $stats;
             $label = $points > 1 ? 'points' : 'point';
 
             $this->addScore($this->command->from_id, $this->command->from, $points);

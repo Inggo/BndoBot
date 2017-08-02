@@ -46,7 +46,7 @@ class Shuffle extends BaseCommand
         } elseif (!file_exists($this->gamefile)) {
             $this->sendMessage('Type `/shuffle start` to start a game');
         } elseif (file_exists($this->gamefile)) {
-            $this->sendMessage('Game is currentyl running. Type `/shuffle stop` to stop the game');
+            $this->sendMessage('Game is currently running. Type `/shuffle stop` to stop the game');
         } else {
             /* Ignore? */
         }
@@ -81,6 +81,10 @@ class Shuffle extends BaseCommand
 
     protected function showHint($count)
     {
+        if (!file_exists($this->wordfile)) {
+            return $this->endRound(false);
+        }
+
         $word = $this->getWord();
 
         $hint = '';
@@ -128,9 +132,11 @@ class Shuffle extends BaseCommand
         sleep(self::SLEEP_TIME);
     }
 
-    protected function endRound()
+    protected function endRound($times_up = true)
     {
-        $this->sendMessage('Times up! Answer is: `' . $this->getWord() . '`');
+        if ($times_up) {
+            $this->sendMessage('Times up! Answer is: `' . $this->getWord() . '`');
+        }
         $this->setGameState('5');
         unlink($this->wordfile);
         sleep(self::SLEEP_TIME);
