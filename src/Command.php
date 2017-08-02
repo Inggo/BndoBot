@@ -10,6 +10,7 @@ use Inggo\BndoBot\Commands\Shuffle;
 use Inggo\BndoBot\Commands\ShuffleAnswer;
 use Inggo\BndoBot\Commands\Hearthstone;
 use Inggo\BndoBot\Commands\MagicTheGathering;
+use Inggo\BndoBot\Commands\PSEi;
 
 use Inggo\BndoBot\Trivia\Trivia;
 use Inggo\BndoBot\Trivia\AnswerChecker as TriviaAnswer;
@@ -78,6 +79,9 @@ class Command
             case '/mtg':
             case '/magicthegathering':
                 return new MagicTheGathering($this);
+            case '/pse':
+            case '/psei':
+                return new PSEi($this);
             default:
                 new ShuffleAnswer($this);
                 new TriviaAnswer($this);
