@@ -10,7 +10,7 @@ class Strawpoll extends BaseCommand
     const API = 'https://strawpoll.me/api/v2/polls';
     const HELPTXT = 'Format: `/strawpoll Poll Title|Option 1,Option 2,Option 3,...`';
     const EXAMPLE = 'Example: `/strawpoll Favorite Chicken Part?|Breast,Thighs,Legs,Wings`';
-    const HELPMSG = HELPTXT . "\n" . EXAMPLE;
+    const HELPMSG = self::HELPTXT . "\n" . self::EXAMPLE;
 
     public function __construct($command)
     {
@@ -23,12 +23,12 @@ class Strawpoll extends BaseCommand
 
         if (!$title) {
             return $this->sendMessage("Please provide your Poll Title.\n" .
-                HELPMSG, true);
+                self::HELPMSG, true);
         }
 
         if (!$options || empty($options) || count($options) < 2) {
             return $this->sendMessage("Please provide two or more options.\n" .
-                HELPMSG, true);
+                self::HELPMSG, true);
         }
 
         $this->title = trim($title);
@@ -60,10 +60,11 @@ class Strawpoll extends BaseCommand
         $json_response = json_decode($response);
 
         if (!$response || !$json_response->id) {
-            return $this->sendMessage('Cannot create Strawpoll. Try again later.', true);
+            return $this->sendMessage('Cannot create Strawpoll. Try again later.' . "\n"
+                . $response, true);
         }
 
         $this->respond("Poll created (ID: `{$json_response->id}`)\n" .
-            URL . $json_response->id, true);
+            self::URL . $json_response->id, true);
     }
 }
