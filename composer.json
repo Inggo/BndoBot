@@ -1,4 +1,7 @@
 {
+  "autoload": {
+    "psr-4": {"Inggo\\BndoBot\\": "src/"}
+  },
   "require": {
     "unreal4u/telegram-api": "~2.6"
   }

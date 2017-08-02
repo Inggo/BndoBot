@@ -22,6 +22,10 @@ class ComposerStaticInit1a973769aade867b89f05f6b87a4d5d2
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
         ),
+        'I' => 
+        array (
+            'Inggo\\BndoBot\\' => 14,
+        ),
         'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
@@ -42,6 +46,10 @@ class ComposerStaticInit1a973769aade867b89f05f6b87a4d5d2
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
+        'Inggo\\BndoBot\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (

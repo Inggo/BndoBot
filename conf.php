@@ -1,5 +1,3 @@
 <?php
 
-declare(strict_types = 1);
-
-define('BOT_TOKEN', '449021115:AAGywnuTzHEAZqDx-mgwzoxHUq06mjjmcPY');
+define('BOT_TOKEN', '449021115:AAE_dGc4_SrLCv1XF6nqQ44OKUEReKsQ3Pw');
