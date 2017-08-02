@@ -69,6 +69,7 @@ class Command
                 return new Shuffle($this);
             case '/trivia':
                 return new Trivia($this);
+            case '/hs':
             case '/hearthstone':
                 return new Hearthstone($this);
             default:

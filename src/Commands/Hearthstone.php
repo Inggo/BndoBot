@@ -36,7 +36,7 @@ class Hearthstone extends BaseCommand
         $context = stream_context_create($opts);
 
         $command = array_shift($this->command);
-        $response = file_get_contents(self::HS_API . $this->search_params, false, $context);
+        $response = file_get_contents(self::HS_API . urlencode($this->search_params), false, $context);
         $json_response = json_decode($response);
 
         if (!$json_response || empty($json_response)) {
