@@ -73,7 +73,7 @@ class Shuffle extends BaseCommand
             $i++;
         }
 
-        sendMessage('Hint ' . $count . ': `' . $hint . '`');
+        $this->sendMessage('Hint ' . $count . ': `' . $hint . '`');
         $this->setGameState($count + 1);
         sleep(self::SLEEP_TIME);
     }
@@ -99,6 +99,7 @@ class Shuffle extends BaseCommand
     {
         $this->sendMessage('Next word will appear in 15 seconds');
         $this->setGameState('0');
+        sleep(self::SLEEP_TIME);
     }
 
     protected function endRound()
@@ -106,6 +107,7 @@ class Shuffle extends BaseCommand
         $this->sendMessage('Times up! Answer is: `' . $this->getWord() . '`');
         $this->setGameState('5');
         unlink($this->wordfile);
+        sleep(self::SLEEP_TIME);
     }
 
     public function game()
