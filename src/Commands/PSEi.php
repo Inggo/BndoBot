@@ -6,7 +6,7 @@ use Inggo\BndoBot\Commands\BaseCommand;
 
 class PSEi extends BaseCommand
 {
-    const PSE_API = 'http://http://phisix-api.appspot.com/stocks/';
+    const PSE_API = 'http://phisix-api.appspot.com/stocks/';
 
     public function __construct($command)
     {
@@ -27,8 +27,7 @@ class PSEi extends BaseCommand
         $json_response = json_decode($response);
 
         if (!$json_response || !$json_response->stock) {
-             $this->sendMessage('No PSEi Stock found for `' . $this->code . '` or API is down', true);
-             return $this->sendMessage($response);
+             return $this->sendMessage('No PSEi Stock found for `' . $this->code . '` or API is down', true);
         }
 
         $as_of = $json_response->as_of;
