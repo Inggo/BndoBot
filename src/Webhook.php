@@ -11,11 +11,8 @@ class Webhook
 
     public function __construct()
     {
-        $this->update = new Update(json_decode(file_get_contents('php://input'), true));
-
-        if ($this->update->update_id == file_get_contents('.lastupdate')) {
-            die();
-        }
+        $request = json_decode(file_get_contents('php://input'), true);
+        $this->update = new Update($request);
 
         file_put_contents('.lastupdate', $this->update->update_id);
 

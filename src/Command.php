@@ -11,15 +11,19 @@ use Inggo\BndoBot\Commands\ShuffleAnswer;
 
 class Command
 {
+    public $id;
     public $args;
     public $command;
     public $from;
     public $from_full;
     public $from_id;
     public $chat_id;
+    public $update;
 
     public function __construct(Update $update)
     {
+        $this->id = $update->update_id;
+
         $this->args = explode(' ', trim($update->message->text));
         $this->command = $this->args[0];
 
@@ -37,6 +41,12 @@ class Command
 
     public function run()
     {
+        if ($this->id == file_get_contents('.lastupdate')) {
+            return;
+        }
+
+        file_put_contents('.lastupdate', $this->id);
+
         switch ($this->command) {
             case '/dog':
                 return new Dog($this);
