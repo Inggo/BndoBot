@@ -8,8 +8,9 @@ class Strawpoll extends BaseCommand
 {
     const URL = 'http://strawpoll.me/';
     const API = 'https://strawpoll.me/api/v2/polls';
-    const HELPTEXT = 'Format: `/strawpoll Poll Title|Option 1,Option 2,Option 3,...`';
+    const HELPTXT = 'Format: `/strawpoll Poll Title|Option 1,Option 2,Option 3,...`';
     const EXAMPLE = 'Example: `/strawpoll Favorite Color?|Black,Blue,Green,Red,Pink,Purple,White`';
+    const HELPMSG = HELPTXT . "\n" . EXAMPLE;
 
     public function __construct($command)
     {
@@ -21,13 +22,13 @@ class Strawpoll extends BaseCommand
         $options = explode(',', $params[1]);
 
         if (!$title) {
-            return $this->sendMessage('Please provide your Poll Title.' . "\n"
-                HELPTEXT . "\n" . EXAMPLE . "\n", true);
+            return $this->sendMessage("Please provide your Poll Title.\n" .
+                HELPMSG, true);
         }
 
         if (!$options || empty($options) || count($options) < 2) {
-            return $this->sendMessage('Please provide two or more options.' . "\n"
-                HELPTEXT . "\n" . EXAMPLE . "\n", true);
+            return $this->sendMessage("Please provide two or more options.\n" .
+                HELPMSG, true);
         }
 
         $this->title = trim($title);
