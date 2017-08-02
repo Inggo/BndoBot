@@ -5,6 +5,8 @@ namespace Inggo\BndoBot\Trivia;
 use Inggo\BndoBot\Commands\BaseCommand;
 use Inggo\BndoBot\Trivia\Question;
 
+use Inggo\BndoBot\Shuffle\Scores;
+
 class Trivia extends BaseCommand
 {
     use Scores;
