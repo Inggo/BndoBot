@@ -47,15 +47,18 @@ class Strawpoll extends BaseCommand
             "options" => $this->options,
         ];
 
-        $context = stream_context_create(array(
-            'http' => array(
-                'method' => 'POST',
-                'header' => "Content-Type: application/json\r\n",
-                'content' => json_encode($post_data)
-            )
+        $ch = curl_init(self::API);
+        curl_setopt_array($ch, array(
+            CURLOPT_POST => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json'
+            ),
+            CURLOPT_POSTFIELDS => json_encode($post_data)
         ));
 
-        $response = file_get_contents(self::API, false, $context);
+        // Send the request
+        $response = curl_exec($ch);
 
         $json_response = json_decode($response);
 
