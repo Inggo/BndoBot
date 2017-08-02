@@ -54,6 +54,7 @@ class Trivia extends BaseCommand
     protected function endGame()
     {
         $this->sendMessage('Game stopped. Type `/trivia start` to start game.');
+        $this->showGameScores();
         $this->unlinkIfExists($this->gamefile);
         $this->unlinkIfExists($this->answerfile);
         $this->unlinkIfExists($this->scorefile);
