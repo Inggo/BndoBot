@@ -85,11 +85,14 @@ trait Scores
             return;
         }
 
-        $this->sendMessage('Ranking for this game:');
+        $msg = "Ranking for this game:\n";
 
         for ($i = 0; $i < count($scores); $i++) {
-            $this->sendScore($scores[$i], $i + 1);
+            $msg .= $i + 1 . '. *' . $scores[$i]->name . '* - ' .
+                $scores[$i]->score . "\n";
         }
+
+        $this->sendMessage($msg);
     }
 
     public function showTopTen()
@@ -100,11 +103,14 @@ trait Scores
             return;
         }
 
-        $this->sendMessage('Top 10 of all time:');
+        $msg = "Top 10 of all time:\n";
 
         for ($i = 0; $i < 10 && $i < count($scores); $i++) {
-            $this->sendScore($scores[$i], $i + 1);
+            $msg .= $i + 1 . '. *' . $scores[$i]->name . '* - ' .
+                $scores[$i]->score . "\n";
         }
+
+        $this->sendMessage($msg);
     }
 
     public function showUserStats($user_id, $user_name)
@@ -164,7 +170,7 @@ trait Scores
             if ($a->score == $b->score) {
                 return 0;
             }
-            return $a->score < $b->score ? -1 : 1;
+            return $a->score < $b->score ? 1 : -1;
         });
 
         return $sortedscores;
