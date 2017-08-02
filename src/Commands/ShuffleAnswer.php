@@ -34,7 +34,7 @@ class ShuffleAnswer extends BaseCommand
         if ($this->format($word) === $this->format($this->answer)) {
             file_put_contents($this->gamefile, '5');
             unlink($this->wordfile);
-            $this->sendMessage($this->command->from ' got it right! Answer: `' . $word . '`');
+            $this->sendMessage($this->command->from . ' got it right! Answer: `' . $word . '`');
         }
     }
 }
