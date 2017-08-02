@@ -12,8 +12,6 @@ class Score
 
 trait Scores
 {
-    use ShuffleScore;
-
     public $scorefile;
     public $globalscorefile = '.shuffle-scores';
 
