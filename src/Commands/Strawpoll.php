@@ -9,7 +9,7 @@ class Strawpoll extends BaseCommand
     const URL = 'http://strawpoll.me/';
     const API = 'https://strawpoll.me/api/v2/polls';
     const HELPTXT = 'Format: `/strawpoll Poll Title|Option 1,Option 2,Option 3,...`';
-    const EXAMPLE = 'Example: `/strawpoll Favorite Color?|Black,Blue,Green,Red,Pink,Purple,White`';
+    const EXAMPLE = 'Example: `/strawpoll Favorite Chicken Part?|Breast,Thighs,Legs,Wings`';
     const HELPMSG = HELPTXT . "\n" . EXAMPLE;
 
     public function __construct($command)
