@@ -7,7 +7,7 @@ use Inggo\BndoBot\Commands\BaseCommand;
 class StrawpollResults extends BaseCommand
 {
     const URL = 'http://strawpoll.me/';
-    const API = 'https://strawpoll.me/api/v2/polls/';
+    const API = 'https://www.strawpoll.me/api/v2/polls/';
 
     public function __construct($command)
     {
@@ -15,7 +15,7 @@ class StrawpollResults extends BaseCommand
 
         $id = trim(implode(' ', $this->command->params));
         
-        if (!$id || (int) $id !== $id || $id <= 0) {
+        if (!$id || (int) $id != $id || $id <= 0) {
             $this->sendMessage('Usage: `/strawresults <poll_id>`' . "\n" .
                 'Example: `/strawresults 1234`');
             return;

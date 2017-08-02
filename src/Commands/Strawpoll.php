@@ -7,7 +7,7 @@ use Inggo\BndoBot\Commands\BaseCommand;
 class Strawpoll extends BaseCommand
 {
     const URL = 'http://strawpoll.me/';
-    const API = 'https://strawpoll.me/api/v2/polls';
+    const API = 'https://www.strawpoll.me/api/v2/polls';
     const HELPTXT = 'Format: `/strawpoll Poll Title|Option 1,Option 2,Option 3,...`';
     const EXAMPLE = 'Example: `/strawpoll Favorite Chicken Part?|Breast,Thighs,Legs,Wings`';
     const HELPMSG = self::HELPTXT . "\n" . self::EXAMPLE;
@@ -47,15 +47,14 @@ class Strawpoll extends BaseCommand
             "options" => $this->options,
         ];
 
-        $context = stream_context_create(array(
-            'http' => array(
-                'method' => 'POST',
-                'header' => "Content-Type: application/json\r\n",
-                'content' => json_encode($post_data)
-            )
-        ));
+        $ch = curl_init(self::API);
+        $payload = json_encode($post_data);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        $response = file_get_contents(self::API, false, $context);
+        $response = curl_exec($ch);
+        curl_close($ch);
 
         $json_response = json_decode($response);
 
