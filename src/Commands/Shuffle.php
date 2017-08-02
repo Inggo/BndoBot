@@ -128,7 +128,7 @@ class Shuffle extends BaseCommand
     protected function startRound($force = false)
     {
         if ($this->round > 0 && $this->round % 5 === 0) {
-            $this->showGameScore();
+            $this->showGameScores();
         }
 
         $this->round++;
