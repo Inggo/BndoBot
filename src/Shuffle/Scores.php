@@ -37,7 +37,7 @@ trait Scores
         $this->answerfile = $this->gamefile . '-answer';
 
         $this->scorefile = $this->gamefile . '-score';
-        $this->monthlyscorefile = $this->gamefile . '-score-' . date(Ym);
+        $this->monthlyscorefile = $this->gamefile . '-score-' . date('Ym');
         $this->globalscorefile = $this->gamefile . '-score-all';
     }
 

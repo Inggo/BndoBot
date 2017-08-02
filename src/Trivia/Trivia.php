@@ -115,11 +115,11 @@ class Trivia extends BaseCommand
     protected function getRandomQuestion()
     {
         // Get random file
-        $question_files = glob('questions/question_*');
+        $files = glob('questions/question_*');
         $file = $files[array_rand($files)];
 
-        $f_contents = file('questions/' . $file);
-        return new Question(trim($f_contents[rand(0, count($f_contents) - 1)]));
+        $questions = file('questions/' . $file);
+        return new Question(trim($questions[rand(0, count($questions) - 1)]));
     }
 
     protected function startRound($force = false)
