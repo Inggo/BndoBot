@@ -22,15 +22,18 @@ class Shuffle extends BaseCommand
     {
         if (strtolower($this->command->args[1]) === 'stop' && file_exists($this->gamefile)) {
             return $this->endGame();
-        }
-
-        if (strtolower($this->command->args[1]) === 'start' && !file_exists($this->gamefile)) {
+        } elseif (strtolower($this->command->args[1]) === 'start' && !file_exists($this->gamefile)) {
             $this->sendMessage('Shuffle game started.');
             $this->startRound();
             return $this->game();
+        } elseif (!file_exists($this->gamefile)) {
+            $this->sendMessage('Type `/shuffle start` to start a game');
+        } elseif (file_exists($this->gamefile)) {
+            $this->sendMessage('Game is currentyl running. Type `/shuffle stop` to stop the game');
+        } else {
+            /* Ignore? */
         }
 
-        $this->sendMessage('Type `/shuffle start` to start a game or `/shuffle stop` to stop a game');
     }
 
     protected function endGame()
