@@ -118,7 +118,7 @@ class Trivia extends BaseCommand
         $files = glob('questions/questions_*');
         shuffle($files);
 
-        $questions = file(realpath($files[0]));
+        $questions = file($files[0]);
         return new Question(trim($questions[rand(0, count($questions) - 1)]));
     }
 

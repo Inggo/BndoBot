@@ -11,6 +11,6 @@ class Question
     {
         $qargs = explode('`', $question);
         $this->question = array_shift($qargs);
-        $this->answer = implode($qargs[1]);
+        $this->answer = implode('`', $qargs);
     }
 }
