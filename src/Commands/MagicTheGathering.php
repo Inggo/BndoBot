@@ -34,8 +34,8 @@ class MagicTheGathering extends BaseCommand
         }
 
         for ($i = 0; $i < count($json_response->cards); $i++) {
-            if ($json_response[$i]->imageUrl) {
-                $response_img = $json_response[$i]->imageUrl;
+            if ($json_response->cards[$i]->imageUrl) {
+                $response_img = $json_response->cards[$i]->imageUrl;
                 $this->respondWithPhoto($response_img);
                 return;
             }
