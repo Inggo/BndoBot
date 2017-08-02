@@ -94,7 +94,7 @@ class Trivia extends BaseCommand
         }
 
         while ($i < strlen($answer)) {
-            if ($answer[$i] == '*') {
+            if ($answer[$i] == ' ') {
                 $hint .= ' ';
             } else {
                 $hint .= '*';
