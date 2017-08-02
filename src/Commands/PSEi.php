@@ -27,7 +27,7 @@ class PSEi extends BaseCommand
         $json_response = json_decode($response);
 
         if (!$json_response || !$json_response->stock) {
-             return $this->sendMessage('No PSEi Stock found for `' . $this->code . '` or API is down', true);
+             $this->sendMessage('No PSEi Stock found for `' . $this->code . '` or API is down', true);
              return $this->sendMessage($response);
         }
 
