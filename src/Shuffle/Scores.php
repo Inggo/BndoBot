@@ -129,7 +129,7 @@ trait Scores
     public function sendScore($score, $rank = 0)
     {
         if ($rank > 0) {
-            return $this->sendMessage($rank '. *' . $score->name . '* - ' . $score->score);
+            return $this->sendMessage($rank . '. *' . $score->name . '* - ' . $score->score);
         }
 
         return $this->sendMessage('*' . $score->name . '* - ' . $score->score);
