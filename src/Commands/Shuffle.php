@@ -10,7 +10,7 @@ class Shuffle extends BaseCommand
 
     public function __construct($command)
     {
-        parent::__construct($game);
+        parent::__construct($command);
 
         $this->gamefile = '.shuffle-' . $chat_id;
         $this->wordfile = $this->gamefile . '-word';
@@ -29,6 +29,8 @@ class Shuffle extends BaseCommand
             $this->startRound();
             return $this->game();
         }
+
+        $this->sendMessage('Type `/shuffle start` to start a game or `/shuffle stop` to stop a game');
     }
 
     protected function endGame()
