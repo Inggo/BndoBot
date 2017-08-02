@@ -4,7 +4,7 @@ namespace Inggo\BndoBot\Commands;
 
 use Inggo\BndoBot\Commands\BaseCommand;
 
-class Dog extends BaseCommand
+class PSEi extends BaseCommand
 {
     const PSE_API = 'http://http://phisix-api.appspot.com/stocks/';
 
