@@ -40,7 +40,7 @@ class Hearthstone extends BaseCommand
         $json_response = json_decode($response);
 
         if (!$json_response || empty($json_response)) {
-            return $this->respond('No Hearthstone card found for `' . $this->search_params . '`');
+            return $this->sendMessage('No Hearthstone card found for `' . $this->search_params . '`');
         }
 
         for ($i = 0; $i < count($json_response); $i++) {
@@ -49,6 +49,10 @@ class Hearthstone extends BaseCommand
                 $this->respondWithPhoto($response_img);
                 return;
             }
+        }
+
+        if ($i >= count($json_response)) {
+            $this->respond('No Hearthstone card found for `' . $this->search_params . '`');
         }
     }
 }
