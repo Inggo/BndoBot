@@ -20,11 +20,11 @@ class Shuffle extends BaseCommand
 
     public function run()
     {
-        if (strtolower($this->command->args[1]) === 'stop') && file_exists($this->gamefile)) {
+        if (strtolower($this->command->args[1]) === 'stop' && file_exists($this->gamefile)) {
             return $this->endGame();
         }
 
-        if (strtolower($this->command->args[1]) === 'start') && !file_exists($this->gamefile)) {
+        if (strtolower($this->command->args[1]) === 'start' && !file_exists($this->gamefile)) {
             $this->sendMessage('Shuffle game started.');
             $this->startRound();
             return $this->game();
