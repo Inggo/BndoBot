@@ -57,11 +57,12 @@ class Strawpoll extends BaseCommand
 
         $response = file_get_contents(self::API, false, $context);
 
+        trigger_error($response);
+
         $json_response = json_decode($response);
 
         if (!$response || !$json_response->id) {
-            return $this->sendMessage('Cannot create Strawpoll. Try again later.' . "\n"
-                . $response, true);
+            return $this->sendMessage('Cannot create Strawpoll. Try again later.', true);
         }
 
         $this->respond("Poll created (ID: `{$json_response->id}`)\n" .
