@@ -8,6 +8,7 @@ use Inggo\BndoBot\Commands\FU;
 use Inggo\BndoBot\Commands\RNM;
 use Inggo\BndoBot\Commands\Shuffle;
 use Inggo\BndoBot\Commands\ShuffleAnswer;
+use Inggo\BndoBot\Commands\Hearthstone;
 
 use Inggo\BndoBot\Trivia\Trivia;
 use Inggo\BndoBot\Trivia\AnswerChecker as TriviaAnswer;
@@ -23,13 +24,18 @@ class Command
     public $from_id;
     public $chat_id;
     public $update;
+    public $params;
 
     public function __construct(Update $update)
     {
         $this->id = $update->update_id;
 
-        $this->args = explode(' ', trim($update->message->text));
-        $this->command = $this->args[0];
+        $args = explode(' ', trim($update->message->text));
+        $this->args = $args;
+        
+        $this->command = array_shift($args);
+
+        $this->params = $args;
 
         $this->chat_id = $update->message->chat->id;
 
@@ -63,6 +69,8 @@ class Command
                 return new Shuffle($this);
             case '/trivia':
                 return new Trivia($this);
+            case '/hearthstone':
+                return new Hearthstone($this);
             default:
                 new ShuffleAnswer($this);
                 new TriviaAnswer($this);
