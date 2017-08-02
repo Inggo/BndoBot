@@ -30,19 +30,19 @@ class MagicTheGathering extends BaseCommand
         $json_response = json_decode($response);
 
         if (!$json_response || empty($json_response) || empty($json_response->cards)) {
-            return $this->sendMessage('No Magic: The Gathering card found for `' . $this->search_params . '`');
+            return $this->sendMessage('No Magic: The Gathering card found for `' . $this->search_params . '`', true);
         }
 
         for ($i = 0; $i < count($json_response->cards); $i++) {
             if ($json_response->cards[$i]->imageUrl) {
                 $response_img = $json_response->cards[$i]->imageUrl;
-                $this->respondWithPhoto($response_img);
+                $this->respondWithPhoto($response_img, true);
                 return;
             }
         }
 
         if ($i >= count($json_response)) {
-            $this->respond('No Magic: The Gathering card found for `' . $this->search_params . '`');
+            $this->respond('No Magic: The Gathering card found for `' . $this->search_params . '`', true);
         }
     }
 }

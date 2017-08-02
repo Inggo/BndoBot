@@ -23,6 +23,6 @@ class RNM extends BaseCommand
         $img = $json_response->content->upload->links->original;
         $response_img = self::BASE_URL . $img;
 
-        $this->respondWithPhoto($response_img);
+        $this->respondWithPhoto($response_img, true);
     }
 }

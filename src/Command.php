@@ -17,6 +17,7 @@ use Inggo\BndoBot\Trivia\AnswerChecker as TriviaAnswer;
 class Command
 {
     public $id;
+    public $message_id;
     public $args;
     public $command;
     public $from;
@@ -30,6 +31,7 @@ class Command
     public function __construct(Update $update)
     {
         $this->id = $update->update_id;
+        $this->message_id = $update->message->message_id;
 
         $args = explode(' ', trim($update->message->text));
         $this->args = $args;

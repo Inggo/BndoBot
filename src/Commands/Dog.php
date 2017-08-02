@@ -25,6 +25,6 @@ class Dog extends BaseCommand
 
         $response_img = $json_response->message;
 
-        $this->respondWithPhoto($response_img);
+        $this->respondWithPhoto($response_img, true);
     }
 }
