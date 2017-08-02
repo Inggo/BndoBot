@@ -7,7 +7,7 @@ use Inggo\BndoBot\Commands\BaseCommand;
 class Strawpoll extends BaseCommand
 {
     const URL = 'http://strawpoll.me/';
-    const API = 'https://www.strawpoll.me/api/v2/polls';
+    const API = 'https://strawpoll.me/api/v2/polls';
     const HELPTXT = 'Format: `/strawpoll Poll Title|Option 1,Option 2,Option 3,...`';
     const EXAMPLE = 'Example: `/strawpoll Favorite Chicken Part?|Breast,Thighs,Legs,Wings`';
     const HELPMSG = self::HELPTXT . "\n" . self::EXAMPLE;
@@ -47,18 +47,15 @@ class Strawpoll extends BaseCommand
             "options" => $this->options,
         ];
 
-        $ch = curl_init(self::API);
-        curl_setopt_array($ch, array(
-            CURLOPT_POST => true,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json'
-            ),
-            CURLOPT_POSTFIELDS => json_encode($post_data)
+        $context = stream_context_create(array(
+            'http' => array(
+                'method' => 'POST',
+                'header' => "Content-Type: application/json\r\n",
+                'content' => json_encode($post_data)
+            )
         ));
 
-        // Send the request
-        $response = curl_exec($ch);
+        $response = file_get_contents(self::API, false, $context);
 
         $json_response = json_decode($response);
 
@@ -66,7 +63,8 @@ class Strawpoll extends BaseCommand
             return $this->sendMessage('Cannot create Strawpoll. Try again later.', true);
         }
 
-        $this->respond("Poll created (ID: `{$json_response->id}`)\n" .
-            self::URL . $json_response->id, true);
+        $this->sendMessage("Poll created (ID: `{$json_response->id}`)\n" .
+            self::URL . $json_response->id . "\n" .
+            "Use `/strawresults {$json_response->id}` to view results", true);
     }
 }
