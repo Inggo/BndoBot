@@ -15,6 +15,7 @@ class Command
     public $args;
     public $command;
     public $from;
+    public $from_first;
     public $from_full;
     public $from_id;
     public $chat_id;
@@ -32,8 +33,9 @@ class Command
         $this->from = $update->message->from->username ?:
             $update->message->from->first_name;
 
-        $this->from_full = $update->message->from->username ?:
-            $update->message->from->first_name . ' ' .
+        $this->from_first = $update->message->from->first_name;
+
+        $this->from_full = $update->message->from->first_name . ' ' .
             $update->message->from->last_name;
 
         $this->from_id = $update->message->from->id;

@@ -3,10 +3,18 @@
 namespace Inggo\BndoBot\Commands;
 
 use Inggo\BndoBot\Commands\BaseCommand;
+use Inggo\BndoBot\Shuffle\Scores;
 
 class Shuffle extends BaseCommand
 {
+    use Scores;
+
     const SLEEP_TIME = 15;
+
+    private $round = 0;
+
+    public $gamefile;
+    public $wordfile;
 
     public function __construct($command)
     {
@@ -15,17 +23,26 @@ class Shuffle extends BaseCommand
         $this->gamefile = '.shuffle-' . $this->command->chat_id;
         $this->wordfile = $this->gamefile . '-word';
 
+        $this->scorefile = $this->gamefile . '-score';
+
         $this->run();
     }
 
     public function run()
     {
-        if (strtolower($this->command->args[1]) === 'stop' && file_exists($this->gamefile)) {
+        $subcommand = strtolower($this->command->args[1]);
+        if ($subcommand === 'stop' && file_exists($this->gamefile)) {
             return $this->endGame();
-        } elseif (strtolower($this->command->args[1]) === 'start' && !file_exists($this->gamefile)) {
+        } elseif ($subcommand === 'start' && !file_exists($this->gamefile)) {
             $this->sendMessage('Shuffle game started.');
             $this->startRound();
             return $this->game();
+        } elseif ($subcommand === 'stats' && file_exists($this->scorefile)) {
+            $this->showGameScores();
+        } elseif ($subcommand === 'top10' && file_exists($this->globalscorefile)) {
+            $this->showTopTen();
+        } elseif ($subcommand === 'mystats' && file_exists($this->globalscorefile)) {
+            $this->showUserStats($this->command->from_id, $this->command->from);
         } elseif (!file_exists($this->gamefile)) {
             $this->sendMessage('Type `/shuffle start` to start a game');
         } elseif (file_exists($this->gamefile)) {
@@ -41,6 +58,7 @@ class Shuffle extends BaseCommand
         $this->sendMessage('Game stopped. Type `/shuffle start` to start game.');
         unlink($this->gamefile);
         unlink($this->wordfile);
+        unlink($this->scorefile);
     }
 
     protected function getGameState()
@@ -100,6 +118,11 @@ class Shuffle extends BaseCommand
 
     protected function startRound()
     {
+        if ($this->round > 0 && $this->round % 5 === 0) {
+            $this->showGameScore();
+        }
+
+        $this->round++;
         $this->sendMessage('Next word will appear in 15 seconds');
         $this->setGameState('0');
         sleep(self::SLEEP_TIME);
