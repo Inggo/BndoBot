@@ -1,11 +1,11 @@
 <?php
 
-namespace Inggo\BndoBot\Commands;
+namespace Inggo\BndoBot\Trivia;
 
 use Inggo\BndoBot\Commands\BaseCommand;
 use Inggo\BndoBot\Shuffle\Scores;
 
-class ShuffleAnswer extends BaseCommand
+class AnswerChecker extends BaseCommand
 {
     use Scores;
 
@@ -13,7 +13,7 @@ class ShuffleAnswer extends BaseCommand
     {
         parent::__construct($command);
 
-        $this->setupGameFiles('shuffle');
+        $this->setupGameFiles('trivia');
 
         if (!file_exists($this->gamefile) || !file_exists($this->answerfile)) {
             die();
@@ -29,12 +29,31 @@ class ShuffleAnswer extends BaseCommand
         return strtolower(trim($word));
     }
 
+    private function checkAnswer($answer)
+    {
+        $answer = explode('`', $answer);
+
+        foreach ($answer as $a) {
+            if ($this->format($a) === $this->format($this->answer)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function formatAnswer($answer)
+    {
+        $answer = explode('`', $answer);
+        return $answer[0];
+    }
+
     public function run()
     {
         $stats = file_get_contents($this->gamefile);
-        $word = file_get_contents($this->answerfile);
+        $answer = file_get_contents($this->answerfile);
 
-        if ($this->format($word) === $this->format($this->answer)) {
+        if ($this->checkAnswer($answer)) {
             $points = $stats == 1 ? 5 : 5 - $stats;
             $label = $points > 1 ? 'points' : 'point';
 
@@ -43,7 +62,7 @@ class ShuffleAnswer extends BaseCommand
             file_put_contents($this->gamefile, '5');
             $this->unlinkIfExists($this->answerfile);
             $this->sendMessage($this->command->from . ' got it right! Answer: `' .
-                $word . '` for ' . $points . ' ' . $label);
+                $this->formatAnswer($answer) . '` for ' . $points . ' ' . $label);
             $this->showUserStats($this->command->from_id, $this->command->from);
         }
     }

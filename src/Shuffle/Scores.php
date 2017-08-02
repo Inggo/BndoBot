@@ -19,6 +19,9 @@ class Score
 
 trait Scores
 {
+    public $gamefile;
+    public $answerfile;
+
     public $scorefile;
     public $monthlyscorefile;
     public $globalscorefile;
@@ -28,10 +31,10 @@ trait Scores
     public $globalscores = [];
 
     // Put this in a separate class/trait in the future
-    public function setupGameFiles()
+    public function setupGameFiles($game)
     {
-        $this->gamefile = '.shuffle-' . $this->command->chat_id;
-        $this->wordfile = $this->gamefile . '-word';
+        $this->gamefile = '.' . $game . '-' . $this->command->chat_id;
+        $this->answerfile = $this->gamefile . '-answer';
 
         $this->scorefile = $this->gamefile . '-score';
         $this->monthlyscorefile = $this->gamefile . '-score-' . date(Ym);

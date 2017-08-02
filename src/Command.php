@@ -9,6 +9,9 @@ use Inggo\BndoBot\Commands\RNM;
 use Inggo\BndoBot\Commands\Shuffle;
 use Inggo\BndoBot\Commands\ShuffleAnswer;
 
+use Inggo\BndoBot\Trivia\Trivia;
+use Inggo\BndoBot\Trivia\AnswerChecker as TriviaAnswer;
+
 class Command
 {
     public $id;
@@ -58,8 +61,12 @@ class Command
                 return new RNM($this);
             case '/shuffle':
                 return new Shuffle($this);
+            case '/trivia':
+                return new Trivia($this);
             default:
-                return new ShuffleAnswer($this);
+                new ShuffleAnswer($this);
+                new TriviaAnswer($this);
+                return;
         }
     }
 }

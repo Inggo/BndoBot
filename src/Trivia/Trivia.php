@@ -1,23 +1,24 @@
 <?php
 
-namespace Inggo\BndoBot\Commands;
+namespace Inggo\BndoBot\Trivia;
 
 use Inggo\BndoBot\Commands\BaseCommand;
-use Inggo\BndoBot\Shuffle\Scores;
+use Inggo\BndoBot\Trivia\Question;
 
-class Shuffle extends BaseCommand
+class Trivia extends BaseCommand
 {
     use Scores;
 
     const SLEEP_TIME = 15;
 
     private $round = 0;
+    private $trivia;
 
     public function __construct($command)
     {
         parent::__construct($command);
 
-        $this->setupGameFiles('shuffle');
+        $this->setupGameFiles('trivia');
 
         $this->run();
     }
@@ -29,7 +30,7 @@ class Shuffle extends BaseCommand
             return $this->endGame();
         } elseif ($subcommand === 'start' && !file_exists($this->gamefile)) {
             ini_set('max_execution_time', 0);
-            $this->sendMessage('Shuffle game started.');
+            $this->sendMessage('Trivia game started.');
             $this->startRound(true);
             return $this->game();
         } elseif ($subcommand === 'stats' && file_exists($this->scorefile)) {
@@ -39,9 +40,9 @@ class Shuffle extends BaseCommand
         } elseif ($subcommand === 'mystats' && file_exists($this->globalscorefile)) {
             $this->showUserStats($this->command->from_id, $this->command->from);
         } elseif (!file_exists($this->gamefile)) {
-            $this->sendMessage('Type `/shuffle start` to start a game');
+            $this->sendMessage('Type `/trivia start` to start a game');
         } elseif (file_exists($this->gamefile)) {
-            $this->sendMessage('Game is currently running. Type `/shuffle stop` to stop the game');
+            $this->sendMessage('Game is currently running. Type `/trivia stop` to stop the game');
         } else {
             /* Ignore? */
         }
@@ -50,7 +51,7 @@ class Shuffle extends BaseCommand
 
     protected function endGame()
     {
-        $this->sendMessage('Game stopped. Type `/shuffle start` to start game.');
+        $this->sendMessage('Game stopped. Type `/trivia start` to start game.');
         $this->unlinkIfExists($this->gamefile);
         $this->unlinkIfExists($this->answerfile);
         $this->unlinkIfExists($this->scorefile);
@@ -70,10 +71,12 @@ class Shuffle extends BaseCommand
         file_put_contents($this->gamefile, $state);
     }
 
-    protected function generateWord()
+    protected function generateAnswer()
     {
-        file_put_contents($this->answerfile, $this->getRandomWord());
-        $this->sendMessage('Unscramble the following: `' . $this->showRandomWord() . '`');
+        $this->trivia = $this->getRandomQuestion();
+        file_put_contents($this->answerfile, $this->trivia->answer);
+        $this->sendMessage($this->trivia->question . "\n" .
+            '`' . str_repeat("*", strlen($this->trivia->answer)) . '`');
         $this->setGameState('1');
         sleep(self::SLEEP_TIME);
     }
@@ -84,15 +87,15 @@ class Shuffle extends BaseCommand
             return $this->endRound(false);
         }
 
-        $word = $this->getWord();
+        $answer = $this->getAnswer();
 
         $hint = '';
 
         for ($i = 0; $i < $count; $i++) {
-            $hint .= $word[$i];
+            $hint .= $answer[$i];
         }
 
-        while ($i < strlen($word)) {
+        while ($i < strlen($answer)) {
             $hint .= '*';
             $i++;
         }
@@ -102,21 +105,20 @@ class Shuffle extends BaseCommand
         sleep(self::SLEEP_TIME);
     }
 
-    protected function getWord()
+    protected function getAnswer()
     {
         return file_get_contents($this->answerfile);
     }
 
-    protected function getRandomWord()
+    protected function getRandomQuestion()
     {
-        $f_contents = file("dictionary.in");
-        return trim($f_contents[rand(0, count($f_contents) - 1)]);
-    }
+        // Get random file
+        $question_files = glob('questions/question_*');
+        $file = array_rand($files);
 
-    protected function showRandomWord()
-    {
-        $word = file_get_contents($this->answerfile);
-        return str_shuffle($word);
+
+        $f_contents = file($file);
+        return new Question(trim($f_contents[rand(0, count($f_contents) - 1)]));
     }
 
     protected function startRound($force = false)
@@ -126,7 +128,7 @@ class Shuffle extends BaseCommand
         }
 
         $this->round++;
-        $this->sendMessage('Next word will appear in 15 seconds');
+        $this->sendMessage('Next question will appear in 15 seconds');
         $this->setGameState('0', $force);
         sleep(self::SLEEP_TIME);
     }
@@ -134,7 +136,7 @@ class Shuffle extends BaseCommand
     protected function endRound($times_up = true)
     {
         if ($times_up) {
-            $this->sendMessage('Times up! Answer is: `' . $this->getWord() . '`');
+            $this->sendMessage('Times up! Answer is: `' . $this->getAnswer() . '`');
         }
         $this->setGameState('5');
         $this->unlinkIfExists($this->answerfile);
@@ -151,7 +153,7 @@ class Shuffle extends BaseCommand
 
         switch ($this->getGameState()) {
             case '0':
-                $this->generateWord();
+                $this->generateAnswer();
                 break;
             case '1':
             case '2':
