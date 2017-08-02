@@ -33,19 +33,22 @@ class PSEi extends BaseCommand
         $as_of = $json_response->as_of;
         $stock = $json_response->stock[0];
 
-        $msg = $stock->name . "\n`" . $stock->symbol . " " . $stock->price->amount;
+        $msg = $stock->name . "\n<code style='color: %color%'>" . $stock->symbol . " " . $stock->price->amount;
 
         if ($stock->percent_change < 0) {
             $msg .= " ▼ ";
+            $msg = str_replace('%color%', 'red', $msg);
         } elseif ($stock->percent_change > 0) {
             $msg .= " ▲ ";
+            $msg = str_replace('%color%', 'green', $msg);
         } else {
             $msg .= " ● ";
+            $msg = str_replace('%color%', 'gray', $msg);
         }
 
-        $msg .= $stock->percent_change . "%`\n";
+        $msg .= $stock->percent_change . "%</code>\n";
         $msg .= 'As of ' . $as_of;
 
-        $this->sendMessage($msg, true);
+        $this->sendHTML($msg, true);
     }
 }

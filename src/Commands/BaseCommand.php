@@ -15,6 +15,19 @@ class BaseCommand
         $this->command = $command;
     }
 
+    public function sendHTML($message, $reply = false)
+    {
+        $tgLog = new TgLog(BOT_TOKEN);
+        $sendMessage = new SendMessage();
+        $sendMessage->chat_id = $this->command->chat_id;
+        if ($reply) {
+            $sendMessage->reply_to_message_id = $this->command->message_id;
+        }
+        $sendMessage->parse_mode = 'HTML';
+        $sendMessage->text = $message;
+        return $tgLog->performApiRequest($sendMessage);
+    }
+
     public function sendMessage($message, $reply = false)
     {
         $tgLog = new TgLog(BOT_TOKEN);
