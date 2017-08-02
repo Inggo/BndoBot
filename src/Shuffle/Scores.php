@@ -26,8 +26,8 @@ trait Scores
 
     private function setScores($scorefile, $scores, $user_id, $user_name, $points)
     {
-        foreach ($scores as $i => $score) {
-            if ($score->id === $user_id) {
+        for ($i = 0; $i < count($scores); $i++) {
+            if ($scores[$i]->id === $user_id) {
                 $scores[$i]->score += $points;
                 break;
             }

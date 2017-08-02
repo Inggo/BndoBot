@@ -35,7 +35,7 @@ class Shuffle extends BaseCommand
             return $this->endGame();
         } elseif ($subcommand === 'start' && !file_exists($this->gamefile)) {
             $this->sendMessage('Shuffle game started.');
-            $this->startRound();
+            $this->startRound(true);
             return $this->game();
         } elseif ($subcommand === 'stats' && file_exists($this->scorefile)) {
             $this->showGameScores();
@@ -66,8 +66,12 @@ class Shuffle extends BaseCommand
         return file_get_contents($this->gamefile);
     }
 
-    protected function setGameState($state)
+    protected function setGameState($state, $force = false)
     {
+        if (!$force && !file_exists($this->gamefile)) {
+            return;
+        }
+
         file_put_contents($this->gamefile, $state);
     }
 
@@ -120,7 +124,7 @@ class Shuffle extends BaseCommand
         return str_shuffle($word);
     }
 
-    protected function startRound()
+    protected function startRound($force = false)
     {
         if ($this->round > 0 && $this->round % 5 === 0) {
             $this->showGameScore();
@@ -128,7 +132,7 @@ class Shuffle extends BaseCommand
 
         $this->round++;
         $this->sendMessage('Next word will appear in 15 seconds');
-        $this->setGameState('0');
+        $this->setGameState('0', $force);
         sleep(self::SLEEP_TIME);
     }
 
