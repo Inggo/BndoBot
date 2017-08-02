@@ -9,6 +9,7 @@ use Inggo\BndoBot\Commands\RNM;
 use Inggo\BndoBot\Commands\Shuffle;
 use Inggo\BndoBot\Commands\ShuffleAnswer;
 use Inggo\BndoBot\Commands\Hearthstone;
+use Inggo\BndoBot\Commands\MagicTheGathering;
 
 use Inggo\BndoBot\Trivia\Trivia;
 use Inggo\BndoBot\Trivia\AnswerChecker as TriviaAnswer;
@@ -72,6 +73,9 @@ class Command
             case '/hs':
             case '/hearthstone':
                 return new Hearthstone($this);
+            case '/mtg':
+            case '/magicthegathering':
+                return new MagicTheGathering($this);
             default:
                 new ShuffleAnswer($this);
                 new TriviaAnswer($this);
