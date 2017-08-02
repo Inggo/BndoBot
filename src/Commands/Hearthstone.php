@@ -50,5 +50,9 @@ class Hearthstone extends BaseCommand
                 return;
             }
         }
+
+        if ($i >= count($json_response)) {
+            $this->respond('No Hearthstone card found for `' . $this->search_params . '`');
+        }
     }
 }
