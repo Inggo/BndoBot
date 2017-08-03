@@ -13,7 +13,7 @@ class WolframAlpha extends BaseCommand
     {
         parent::__construct($command);
 
-        $this->query = rawurlencode(trim(implode(' ', $this->command->query)));
+        $this->query = rawurlencode(trim(implode(' ', $this->command->params)));
 
         if (!$this->query) {
             return;
