@@ -89,7 +89,7 @@ class Shuffle extends BaseCommand
 
         $hint = '';
 
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i/strlen($answer) <= $count/4; $i++) {
             $hint .= $word[$i];
         }
 
