@@ -39,10 +39,10 @@ class StrawpollResults extends BaseCommand
         $poll = $json_response;
 
         $url = self::URL . $json_response->id;
-        $msg = "[{$poll->title}]({$url})\n";
+        $msg = "*{$poll->title}* - {$url}\n";
 
         foreach ($poll->options as $i => $option) {
-            $msg .= "*{$option}*: {$poll->votes[$i]}\n";
+            $msg .= "* {$option}: {$poll->votes[$i]}\n";
         }
 
         $this->sendMessage($msg, true);
