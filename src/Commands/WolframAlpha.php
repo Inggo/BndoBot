@@ -3,6 +3,7 @@
 namespace Inggo\BndoBot\Commands;
 
 use Inggo\BndoBot\Commands\BaseCommand;
+use unreal4u\TelegramAPI\Telegram\Types\Custom\InputFile;
 
 class WolframAlpha extends BaseCommand
 {
@@ -31,6 +32,12 @@ class WolframAlpha extends BaseCommand
             return $this->sendMessage('Unable to query Wolfram|Alpha. Try again later.', true);
         }
 
-        $this->respondWithPhoto($response, true);
+        file_put_contents('.wolfram-image', $response);
+
+        $attachment = new InputFile('.wolfram-image');
+
+        $this->respondWithPhoto($attachment, true);
+
+        unlink('.wolfram-image');
     }
 }
