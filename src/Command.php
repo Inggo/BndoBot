@@ -13,6 +13,7 @@ use Inggo\BndoBot\Commands\MagicTheGathering;
 use Inggo\BndoBot\Commands\PSEi;
 use Inggo\BndoBot\Commands\Strawpoll;
 use Inggo\BndoBot\Commands\StrawpollResults;
+use Inggo\BndoBot\Commands\WolframAlpha;
 
 use Inggo\BndoBot\Trivia\Trivia;
 use Inggo\BndoBot\Trivia\AnswerChecker as TriviaAnswer;
@@ -94,6 +95,10 @@ class Command
             case '/strawresults':
             case '/strawpollresults':
                 return new StrawpollResults($this);
+            case '/wra':
+            case '/wolfram':
+            case '/wolframalpha':
+                return new WolframAlpha($this);
             default:
                 new ShuffleAnswer($this);
                 new TriviaAnswer($this);
