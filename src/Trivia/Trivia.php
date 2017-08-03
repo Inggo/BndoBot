@@ -90,7 +90,7 @@ class Trivia extends BaseCommand
 
         $hint = '';
 
-        for ($i = 0; $i/strlen($answer) <= $count/4; $i++) {
+        for ($i = 0; $i/strlen($answer) < $count/4; $i++) {
             $hint .= $answer[$i];
         }
 
