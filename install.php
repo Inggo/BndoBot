@@ -22,7 +22,12 @@ print "Getting webhook info...\n";
 
 $info = $tgLog->performApiRequest(new GetWebhookInfo());
 
-var_dump($info);
+$last_error = new DateTime($info->last_error_date);
+
+print "\tURL: {$info->url}\n";
+print "\tMax connections: {$info->max_connections}\n";
+print "\tPending update count: {$info->pending_update_count}\n";
+print "\tLast error: \"{$info->last_error_message}\" @ {$last_error->format('d-m-Y H:i:s')}\n";
 
 if (php_sapi_name() !== 'cli') {
     echo "</pre>";
