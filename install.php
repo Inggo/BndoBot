@@ -20,7 +20,9 @@ $tgLog->performApiRequest($setWebhook);
 
 print "Getting webhook info...\n";
 
-print $tgLog->performApiRequest(new GetWebhookInfo());
+$info = $tgLog->performApiRequest(new GetWebhookInfo());
+
+var_dump($info);
 
 if (php_sapi_name() !== 'cli') {
     echo "</pre>";
